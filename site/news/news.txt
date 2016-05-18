@@ -1,0 +1,8 @@
+﻿[title][center]Первая новость ↓[/center][/title]
+[text]
+Тестовый сайт для проверки лаунера. Логин пароль test
+[/text]
+[title][center]Вторая новость ↓[/center][/title]
+[text]
+У лаунчера новый дизайн
+[/text]
