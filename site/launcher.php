@@ -102,7 +102,7 @@
          	$acesstoken = $postPass;
         }
 		$sessid = token();
-        $stmt = $db->prepare("SELECT id, user, token FROM usersession WHERE user= :login");
+        $stmt = $db->prepare("SELECT user, token FROM usersession WHERE user= :login");
 		$stmt->bindValue(':login', $login);
 		$stmt->execute();
 		$rU = $stmt->fetch(PDO::FETCH_ASSOC);
