@@ -29,6 +29,7 @@ import javax.swing.event.HyperlinkListener;
 import net.launcher.run.Settings;
 import net.launcher.theme.Message;
 import net.launcher.utils.BaseUtils;
+import net.launcher.utils.GuardUtils;
 import net.launcher.utils.ImageUtils;
 import net.launcher.utils.ThemeUtils;
 import net.launcher.utils.ThreadUtils;
@@ -343,6 +344,20 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 	//Старт программы
 	public static void start()
 	{
+		Thread ch = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			while (true) {
+				GuardUtils.check();
+				 try {
+						Thread.sleep(30000);
+				 } catch (InterruptedException e) {
+						e.printStackTrace();
+				 }
+		    	 }
+		    }
+		});
+		ch.start();
 		try
 		{
 			send("****launcher****");

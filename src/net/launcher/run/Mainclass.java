@@ -9,16 +9,13 @@ import net.launcher.MusPlay;
 import net.launcher.components.Frame;
 import net.launcher.utils.BaseUtils;
 
-public class Mainclass
-{
-	public static void main(String[] args) throws Exception
-	{	
+public class Mainclass {
+	public static void main(String[] args) throws Exception {	
 		boolean test = (args.length != 0)?(args[0].equals("true")?true:false):false;
         if(test) {
 			File dir = new File(BaseUtils.getAssetsDir().toString());
 			if(!dir.exists()) dir.mkdirs();
 			InputStream stream = Starter.class.getResourceAsStream("/net/launcher/theme/favicon.png");
-		    if (stream == null) {
 		    }
 		    OutputStream resStreamOut = null;
 		    int readBytes;

@@ -38,7 +38,7 @@ public class Game extends JFrame
 	{
 		GuardUtils.getLogs(new File(BaseUtils.getAssetsDir().getAbsolutePath()+File.separator+BaseUtils.getClientName()));
 		GuardUtils.getLogs(new File(BaseUtils.getAssetsDir().getAbsolutePath()+File.separator+"logs"));
-		String bin = BaseUtils.getMcDir().toString() + File.separator;	
+		String bin = BaseUtils.getMcDir().toString() + File.separator;
 		cl = new eURLClassLoader(GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
 		boolean old = false;
 		try
@@ -48,21 +48,6 @@ public class Game extends JFrame
 		} catch(Exception e) {}
 		String user = answer.split("<br>")[1].split("<:>")[0];
 		String session = EncodingUtils.xorencode(EncodingUtils.inttostr(answer.split("<br>")[1].split("<:>")[1]), Settings.protectionKey);
-		
-		Thread ch = new Thread(new Runnable() {
-		    @Override
-			public void run() {
-		    	 while (true) {
-		         GuardUtils.check();
-				 try {
-						Thread.sleep(30000);
-				 } catch (InterruptedException e) {
-						e.printStackTrace();
-				 }
-		    	 }
-		    }
-		});
-		ch.start();
 		
 		if(old)
 		{		
