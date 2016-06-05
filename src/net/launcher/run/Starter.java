@@ -17,8 +17,20 @@ public class Starter {
 			
 			ArrayList<String> params = new ArrayList<String>();
 			params.add(System.getProperty("java.home")+"/bin/java");
+			if(System.getProperty("os.arch").contains("64") && System.getProperty("sun.arch.data.model").equals("32")) {
+				JOptionPane.showMessageDialog(Frame.main, "Рекомендуется использовать\njava 64 bit", "Предупреждение!", javax.swing.JOptionPane.ERROR_MESSAGE, null);
+			}
 			if(System.getProperty("sun.arch.data.model").equals("32") && (memory>1024)) {
 				memory = 1024;
+				BaseUtils.setProperty("memory", 1024);
+			}
+			if(memory<512) {
+				memory = 512;
+				BaseUtils.setProperty("memory", 512);
+			}
+			if(memory>2028) {
+				memory = 2048;
+				BaseUtils.setProperty("memory", 2048);
 			}
 			params.add("-Xmx"+memory+"m");
 			params.add("-XX:MaxPermSize=128m");

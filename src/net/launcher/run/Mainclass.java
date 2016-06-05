@@ -16,7 +16,6 @@ public class Mainclass {
 			File dir = new File(BaseUtils.getAssetsDir().toString());
 			if(!dir.exists()) dir.mkdirs();
 			InputStream stream = Starter.class.getResourceAsStream("/net/launcher/theme/favicon.png");
-		    }
 		    OutputStream resStreamOut = null;
 		    int readBytes;
 		    byte[] buffer = new byte[4096];
