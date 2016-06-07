@@ -12,11 +12,12 @@ public class Settings
 	/** Параметры подключения */
 	public static final String  domain	 	         = "localhost";//Домен сайта
 	public static final String  siteDir		         = "site";//Папка с файлами лаунчера на сайте
-	public static final String  updateFile		     = "https://localhost/site/launcher/fix";//Ссылка на обновления лаунчера. Не писать на конце ".exe .jar"!
+	public static String RegisterUrl	             = "http://localhost/";//Ссылка на регистрацию, при useRegister = false
+	public static final String  http	             = "http://";  //Протокол подключения https:// если есть ssl сертификат
+	public static final String  updateFile		     = http  +"localhost/site/launcher/fix";//Ссылка на обновления лаунчера. Не писать на конце ".exe .jar"!
 	public static final String  buyVauncherLink      = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 	public static final String  iMusicname           = "001.mp3";
 	public static final String[] p = {"wireshark", "cheat"};  //Список запрещенных процессов.
-	public static final String http = "http://";   //Протокол подключения https:// если есть ssl сертификат
 	
 	public static int height                         = 532;      //Высота окна клиента
 	public static int width                          = 900;      //Ширина окна клиента
@@ -31,12 +32,13 @@ public class Settings
 	public static final String[] links = 
 	{
 		//Для отключения добавьте в адрес ссылки #
-		" Сайт::http://",
+		//"url::http://",
+		"::#",
 	};
 
 	/** Настройки структуры лаунчера */
 	public static boolean useAutoenter	         =  false;  //Использовать функцию автозахода на выбранный сервер
-	public static boolean useRegister		     =  true;   //Использовать Регистрацию в лаунчере
+	public static boolean useRegister		     =  false;   //Использовать Регистрацию в лаунчере
 	public static boolean useMulticlient		 =  true;   //Использовать функцию "по клиенту на сервер"
 	public static boolean useStandartWB		     =  true;   //Использовать стандартный браузер для открытия ссылок
 	public static boolean usePersonal		     =  true;   //Использовать Личный кабинет

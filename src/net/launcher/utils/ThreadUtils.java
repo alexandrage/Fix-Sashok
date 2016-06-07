@@ -105,7 +105,7 @@ public class ThreadUtils
 					Frame.toPersonal.setVisible(false);
 					Frame.toAuth.setVisible(true);
 					Frame.toLogout.setVisible(false);
-					Frame.toRegister.setVisible(Settings.useRegister && true);
+					Frame.toRegister.setVisible(true);
 					Frame.token = "null";
 					Frame.login.setEditable(true);
 					Frame.main.panel.repaint();

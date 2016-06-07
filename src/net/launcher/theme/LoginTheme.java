@@ -29,7 +29,7 @@ public class LoginTheme
 	public static TextfieldStyle login		= new TextfieldStyle(128, 200, 250, 38, "textfield", "font", 16F, Color.decode("0xA67A53"), Color.decode("0xA67A53"), new EmptyBorder(0, 10, 0, 10));
 	public static PassfieldStyle password	= new PassfieldStyle(128, 250, 250, 38, "textfield", "font", 19F, Color.decode("0xA67A53"), Color.decode("0xA67A53"), "1", new EmptyBorder(0, 10, 0, 10));
 	
-	public static ComponentStyle newsBrowser= new ComponentStyle(20, 60, 660, 60, "font", 0F, Color.WHITE, true);
+	public static ComponentStyle newsBrowser= new ComponentStyle(20, 60, 660, 60, "font", 0F, Color.WHITE, false);
 	public static LinklabelStyle links		= new LinklabelStyle(420, 280, 0, "font", 16F, Color.WHITE, Color.LIGHT_GRAY);
 	
 	public static ButtonStyle	 update_exe	= new ButtonStyle(96, 440, 150, 47, "font", "button", 16F, Color.decode("0xd4dc7b"), true, Align.CENTER);

@@ -175,7 +175,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		toPersonal.setVisible(b2 && Settings.usePersonal);
 		toAuth.setVisible(b1);
 		toLogout.setVisible(b2);
-		toRegister.setVisible(Settings.useRegister && b1);
+		toRegister.setVisible(b1);
 		if(toGame.isVisible())
 		{
 			token = "token";
@@ -454,7 +454,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 			toPersonal.setVisible(false);
 			toAuth.setVisible(true);
 			toLogout.setVisible(false);
-			toRegister.setVisible(Settings.useRegister && true);
+			toRegister.setVisible(true);
 			token = "null";
 			login.setEditable(true);
 			login.setText(Message.Login);
@@ -611,6 +611,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 
 	public void setRegister()
 	{
+		if(Settings.useRegister) {
 		panel.remove(hide);
 		panel.remove(close);
 		BufferedImage screen = ImageUtils.sceenComponent(panel);
@@ -624,6 +625,10 @@ public class Frame extends JFrame implements ActionListener, FocusListener
 		panel.add(closereg);
 		addFrameComp();
 		repaint();
+		} else {
+			BaseUtils.openURL(Settings.RegisterUrl);
+			repaint();
+		}
 	}
 
 	public void setOptions()
