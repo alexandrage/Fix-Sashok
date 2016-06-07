@@ -10,11 +10,11 @@ public class Settings
 	public static final String  skins                = "MinecraftSkins/"; //Папка скинов
 	public static final String  cloaks               = "MinecraftCloaks/"; //Папка плащей
 	/** Параметры подключения */
+	public static final String  http	             = "http://";  //Протокол подключения https:// если есть ssl сертификат
 	public static final String  domain	 	         = "localhost";//Домен сайта
 	public static final String  siteDir		         = "site";//Папка с файлами лаунчера на сайте
-	public static String RegisterUrl	             = "http://localhost/";//Ссылка на регистрацию, при useRegister = false
-	public static final String  http	             = "http://";  //Протокол подключения https:// если есть ssl сертификат
-	public static final String  updateFile		     = http  +"localhost/site/launcher/fix";//Ссылка на обновления лаунчера. Не писать на конце ".exe .jar"!
+	public static final String RegisterUrl	         = http+"localhost/";//Ссылка на регистрацию, при useRegister = false
+	public static final String  updateFile		     = http+"localhost/site/launcher/fix";//Ссылка на обновления лаунчера. Не писать на конце ".exe .jar"!
 	public static final String  buyVauncherLink      = "http://plati.ru/"; //Ссылка на страницу покупки ваучеров
 	public static final String  iMusicname           = "001.mp3";
 	public static final String[] p = {"wireshark", "cheat"};  //Список запрещенных процессов.
