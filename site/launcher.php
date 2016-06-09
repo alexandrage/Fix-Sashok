@@ -513,8 +513,9 @@
 		if($wantbuy == '' || $wantbuy < 1) die("ecoerr");
 		if(!$iconregistered) die("econo");
 		if($query < $wantbuy) die("moneyno");
-		$stmt = $db->prepare("UPDATE iConomy SET balance = balance + $gamemoneyadd WHERE username= :login");
+		$stmt = $db->prepare("UPDATE iConomy SET balance = balance + :gamemoneyadd WHERE username= :login");
 		$stmt->bindValue(':login', $login);
+		$stmt->bindValue(':gamemoneyadd', $gamemoneyadd
 		$stmt->execute();
 		$stmt = $db->prepare("UPDATE usersession SET realmoney = realmoney - :wantbuy WHERE user= :login");
 		$stmt->bindValue(':login', $login);
