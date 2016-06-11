@@ -1,9 +1,9 @@
-package net.minecraft;
+package net.launcher.components;
 
 import java.applet.Applet;
 import java.applet.AppletStub;
 import java.awt.BorderLayout;
-
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -54,6 +54,13 @@ public class Launcher extends Applet implements AppletStub
 			BaseUtils.patchDir(cl);
 			Class <?> Mine = cl.loadClass("net.minecraft.client.MinecraftApplet");
 			System.setProperty("minecraft.applet.WrapperClass", Launcher.class.getName());
+			int i = 0;
+			for(Method m : Launcher.class.getMethods()) {
+				if(m.toString().contains("java.applet.Applet") && i == 0) {
+					System.setProperty("minecraft.applet.ReplaceMethod", m.getName());
+					i++;
+				}
+			}
 			Applet applet = (Applet)Mine.newInstance();
 			mcApplet = applet;
 			applet.setStub(this);
@@ -142,7 +149,6 @@ public class Launcher extends Applet implements AppletStub
 	}
 
 	public void appletResize(int w, int h){}
-
 	public void replace(Applet applet)
 	{
 		mcApplet = applet;
