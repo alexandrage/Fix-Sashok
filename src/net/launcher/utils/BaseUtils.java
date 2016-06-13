@@ -291,11 +291,7 @@ public class BaseUtils
 
 	public static String getClientName()
 	{
-		if(Settings.useMulticlient)
-		{
-			return Frame.main.servers.getSelected().replaceAll(" ", empty);
-		}
-		return "main";
+		return Frame.main.servers.getSelected().replaceAll(" ", empty);
 	}
 
 	public static void openURL(String url)
@@ -587,14 +583,7 @@ public class BaseUtils
 		return false;
 	}
 
-    /**
-     * @author D_ART
-     * 
-     * @param cl URLClassLoader
-     */
 	public static void patchDir( URLClassLoader cl ) {
-		if(!Settings.patchDir) return;
-		
 		try {
 			Class< ? > c = cl.loadClass( "net.minecraft.client.Minecraft" );
 

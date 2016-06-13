@@ -21,7 +21,7 @@ public class Settings
 	
 	public static int height                         = 532;      //Высота окна клиента
 	public static int width                          = 900;      //Ширина окна клиента
-	public static int defaultmemory                  = 768;
+	public static int defaultmemory                  = 768;      //Выделение памяти при первом запуске.
         
 	public static String[] servers =
 	{
@@ -38,8 +38,7 @@ public class Settings
 
 	/** Настройки структуры лаунчера */
 	public static boolean useAutoenter	         =  false;  //Использовать функцию автозахода на выбранный сервер
-	public static boolean useRegister		     =  false;   //Использовать Регистрацию в лаунчере
-	public static boolean useMulticlient		 =  true;   //Использовать функцию "по клиенту на сервер"
+	public static boolean useRegister		     =  false;  //Использовать Регистрацию в лаунчере
 	public static boolean useStandartWB		     =  true;   //Использовать стандартный браузер для открытия ссылок
 	public static boolean usePersonal		     =  true;   //Использовать Личный кабинет
 	public static boolean customframe 		     =  true;   //Использовать кастомный фрейм
@@ -48,7 +47,7 @@ public class Settings
 	public static int     useModCheckerint       =  2;      //Количество раз перепроверки jar во время игры
 	public static boolean assetsfolder           =  false;  //Скачивать assets из папки, или из архива (true=из папки false=из архива) в connect.php должно быть так же.
 
-	public static final String protectionKey	 = "1234567890"; //Ключ защиты сессии. Никому его не говорите.
+	public static final String protectionKey	 = "1234567890"; //Ключ сессии.
 	public static final String key1              = "1234567891234567"; //16 Character Key Ключ пост запросов
 	public static final String key2              = "1234567891234567"; //16 Character Key Ключ пост запросов
 	
@@ -56,12 +55,9 @@ public class Settings
     public static boolean drawTracers		     =  false; //Отрисовывать границы элементов лаунчера
 	public static final String masterVersion     = "final_RC4"; //Версия лаунчера
 
-	public static boolean patchDir 		         =  true; //Использовать автоматическую замену директории игры (true/false)
-
 	public static boolean release 		         =  false;  /**Ставим true после окончания настройки! 
 														    Необходимо для автообновления лаунчера 
 														    после смены ключей key1 key2.*/
-	
 	public static void onStart() {}
 	public static void onStartMinecraft() {}
 	
