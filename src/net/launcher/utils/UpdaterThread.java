@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-//import java.net.URLConnection;
-import java.security.MessageDigest;
 import java.util.List;
 
 import net.launcher.components.Game;
@@ -71,11 +69,9 @@ public class UpdaterThread extends Thread
 			FileOutputStream fos = new FileOutputStream(pathTo + "/" + currentfile);
 			long downloadStartTime = System.currentTimeMillis();
 			int downloadedAmount = 0, bs = 0;
-			MessageDigest m = MessageDigest.getInstance("MD5");
 			while((bs = is.read(buffer, 0, buffer.length)) != -1)
 			{
 				fos.write(buffer, 0, bs);
-				m.update(buffer, 0, bs);
 				currentsize += bs;
 				procents = (int)(currentsize * 100 / totalsize);
 				downloadedAmount += bs;
