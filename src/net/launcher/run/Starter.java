@@ -28,9 +28,9 @@ public class Starter {
 				memory = 512;
 				BaseUtils.setProperty("memory", 512);
 			}
-			if(memory>2028) {
-				memory = 2048;
-				BaseUtils.setProperty("memory", 2048);
+			if(memory>4096) {
+				memory = 4096;
+				BaseUtils.setProperty("memory", 4096);
 			}
 			params.add("-Xmx"+memory+"m");
 			params.add("-XX:MaxPermSize=128m");
