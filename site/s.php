@@ -58,7 +58,7 @@ include_once("loger.php");
 			"id":"'.$md5.'","name":"'.$realUser.'","properties":
 			[
 			{
-				"name":"textures","value":"'.base64_encode($base64).'"
+				"name":"textures","value":"'.base64_encode($base64).'","signature":"Cg=="
 			}
 			]
 		}';
