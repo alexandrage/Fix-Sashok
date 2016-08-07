@@ -1,5 +1,5 @@
 <?php
-foreach($_REQUEST as $key => $val)
+foreach($_REQUEST as $key => $val){break;}
 $imgBig = '1.png';
 $imgSmall = str_replace(array('$', '/'), array('', ''), @$key.'.png');
 @$img1 = imagecreatefrompng($imgBig);
