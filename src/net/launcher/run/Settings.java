@@ -46,7 +46,7 @@ public class Settings
 	public static boolean useConsoleHider		 =  false;  //Использовать скрытие консоли клиента
 	public static boolean useModCheckerTimer	 =  true;   //Перепроверка jar через 30 секунд
 	public static int     useModCheckerint       =  2;      //Количество раз перепроверки jar во время игры
-	public static boolean assetsfolder           =  true;  //Скачивать assets из папки, или из архива (true=из папки false=из архива) в connect.php должно быть так же.
+	public static boolean assetsfolder           =  false;  //Скачивать assets из папки, или из архива (true=из папки false=из архива) в connect.php должно быть так же.
 
 	public static final String protectionKey	 = "1234567890"; //Ключ сессии.
 	public static final String key1              = "1234567891234567"; //16 Character Key Ключ пост запросов
