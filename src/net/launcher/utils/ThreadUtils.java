@@ -10,13 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import net.y;
 import net.launcher.components.Frame;
-import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
 import net.launcher.run.Settings;
 import net.launcher.theme.Message;
@@ -26,6 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class ThreadUtils
 {
+	public static UpdaterThread updaterThread;
 	public static Thread serverPollThread;
 	static String d = y.e()+"1234";
 	public static void updateNewsPage(final String url)
@@ -247,18 +244,8 @@ public class ThreadUtils
 		t.start();
 	}
     
-	
-	public static int procents = 0;
-	public static long totalsize = 0;
-	public static long downloadedAmount = 0;
-	public static long currentsize = 0;
-	public static String currentfile = "...";
-	public static int downloadspeed = 0;
-	public static String state = "...";
-	public static boolean error = false;
-	public static long downloadStartTime = 0;
         
-	public static void runUpdater(String answer) throws Exception
+	public static void runUpdater(String answer)
 	{
 		boolean zipupdate = false;
 		boolean asupdate = false;
@@ -292,50 +279,10 @@ public class ThreadUtils
 		}
 		BaseUtils.send("---- Filelist end ----");
 		BaseUtils.send("Running updater...");
-		totalsize = GuardUtils.filesize;
-	    ExecutorService ex = Executors.newFixedThreadPool(Settings.thread);
-	    downloadStartTime = System.currentTimeMillis();
-	    for (final String file : files)
-	    	ex.submit(new Runnable() {
-				@Override
-				public void run() {
-					UpdaterThread.run(file);
-				}
-		});
-	    ex.shutdown();
+		updaterThread = new UpdaterThread(files, zipupdate, asupdate, answer);
+		updaterThread.setName("Updater thread");
 		Frame.main.setUpdateState();
-        try {
-			ex.awaitTermination(1, TimeUnit.DAYS);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(error) {
-			state = "Ошибка загрузки";
-			Thread.sleep(1000);
-			GuardUtils.filesize = 0;
-			totalsize = 0;
-			currentsize = 0;
-			downloadspeed = 0;
-			error = false;
-			runUpdater(answer);
-			return;
-		}
-		if(zipupdate) {
-			state = "Расспаковка config.zip";
-			String path = BaseUtils.getMcDir().getAbsolutePath() + File.separator;
-			String file = path + "config.zip";
-			BaseUtils.setProperty(BaseUtils.getClientName() + "_zipmd5", GuardUtils.hash(new File(file).toURI().toURL()));
-			ZipUtils.unzip(path, file);
-		}
-		if(asupdate) {
-			state = "Расспаковка assets.zip";
-			String path = BaseUtils.getAssetsDir().getAbsolutePath() + File.separator;
-			String file = path + "assets.zip";
-			BaseUtils.setProperty("assets_aspmd5", GuardUtils.hash(new File(file).toURI().toURL()));
-			ZipUtils.unzip(path, file);
-		}
-		state = "Запуск";
-		new Game(answer);
+		updaterThread.run();
 	}
 	
 	public static void pollSelectedServer()
