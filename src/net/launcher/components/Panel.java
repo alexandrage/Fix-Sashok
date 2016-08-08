@@ -19,7 +19,6 @@ import net.launcher.theme.OptionsTheme;
 import net.launcher.theme.UpdateTheme;
 import net.launcher.utils.BaseUtils;
 import net.launcher.utils.ThreadUtils;
-import net.launcher.utils.UpdaterThread;
 import static net.launcher.components.Files.*;
 import static net.launcher.theme.LoginTheme.*;
 import static net.launcher.theme.OptionsTheme.*;
@@ -106,30 +105,32 @@ public class Panel extends JPanel
 		} else if(type == 4)
 		{	
 			g.drawImage(background_download, 0, 0, getWidth(), getHeight(), null);
-			UpdaterThread t = ThreadUtils.updaterThread;
 			
 			int leftTime = 0;
-	    try	{	leftTime = (int) ((t.totalsize - t.currentsize) / (t.downloadspeed * 100)); } catch(Exception e){}
-			
+	    try	{
+			long timeLapse = System.currentTimeMillis() - ThreadUtils.downloadStartTime;
+			if (timeLapse >= 1000L) {
+				ThreadUtils.downloadspeed = (int)((int) (ThreadUtils.downloadedAmount / (float) timeLapse * 100.0F) / 100.0F);
+				ThreadUtils.downloadStartTime += 1000L;
+				ThreadUtils.downloadedAmount = 0;
+			}
+	    	leftTime = (int) ((ThreadUtils.totalsize - ThreadUtils.currentsize) / (ThreadUtils.downloadspeed * 100)); } catch(Exception e){}
 			g.setFont(updaterDesc.font);
 			g.setColor(updaterDesc.color);
-			
-			g.drawString(Message.currentfile.replace("%%", t.currentfile.substring(t.currentfile.lastIndexOf(File.separator)+1)), stringsX, stringsY);
-			g.drawString(Message.totalsize.replace("%%", Long.toString(t.totalsize)), stringsX, stringsY + 20);
-			g.drawString(Message.currentsize.replace("%%", Long.toString(t.currentsize)), stringsX, stringsY + 40);
-			g.drawString(Message.downloadspeed.replace("%%", Long.toString(t.downloadspeed)), stringsX, stringsY + 60);
+			g.drawString(Message.currentfile.replace("%%", ThreadUtils.currentfile.substring(ThreadUtils.currentfile.lastIndexOf(File.separator)+1)), stringsX, stringsY);
+			g.drawString(Message.totalsize.replace("%%", Long.toString(ThreadUtils.totalsize)), stringsX, stringsY + 20);
+			g.drawString(Message.currentsize.replace("%%", Long.toString(ThreadUtils.currentsize)), stringsX, stringsY + 40);
+			g.drawString(Message.downloadspeed.replace("%%", Long.toString(ThreadUtils.downloadspeed)), stringsX, stringsY + 60);
 			g.drawString(Message.McDir.replace("%%", BaseUtils.getMcDir().getAbsolutePath().substring(BaseUtils.getMcDir().getAbsolutePath().lastIndexOf(File.separator)+1)), stringsX, stringsY + 80);
-			g.drawString(Message.state.replace("%%", t.state), stringsX, stringsY + 100);
+			g.drawString(Message.state.replace("%%", ThreadUtils.state), stringsX, stringsY + 100);
 			g.drawString(Message.leftTime.replace("%%", Long.toString(leftTime)), stringsX, stringsY + 120);
-			
-			if(t.error) return;
 			BufferedImage img = genButton(loadbarW, loadbarH, bar);
 			try
 			{
-				int percentw = (int)(t.procents * loadbarW / 100);
+				int percentw = (int)(ThreadUtils.procents * loadbarW / 100);
 				g.drawImage(img.getSubimage(0, 0, percentw, loadbarH), loadbarX, loadbarY, null);
 				g.drawImage(bar_label, (loadbarX + percentw) - (bar_label.getWidth() / 2)-10, loadbarY - bar_label.getHeight(), null);
-				g.drawString(t.procents + "%", (loadbarX + percentw) - (g.getFontMetrics().stringWidth(t.procents + "%") / 2), loadbarY - (bar_label.getHeight() / 2));
+				g.drawString(ThreadUtils.procents + "%", (loadbarX + percentw) - (g.getFontMetrics().stringWidth(ThreadUtils.procents + "%") / 2), loadbarY - (bar_label.getHeight() / 2));
 			} catch(Exception e){}
 		} else if(type == 5)
 		{
