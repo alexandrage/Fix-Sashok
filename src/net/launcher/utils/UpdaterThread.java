@@ -11,7 +11,7 @@ public class UpdaterThread {
 	public static void run(String files) {
 		try {
 			String boundary = PostUtils.randomString() + PostUtils.randomString() + PostUtils.randomString();
-			System.out.println(files);
+			BaseUtils.send(files);
 			String pathTo = BaseUtils.getAssetsDir().getAbsolutePath();
 			String urlTo = BaseUtils.buildUrl("clients");
 			File dir = new File(pathTo);
