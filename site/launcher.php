@@ -81,7 +81,7 @@
 			exit(Security::encrypt("temp<$>", $key1));
 		}
 		
-		if ($login !== $realUser) {
+		if ($login != $realUser) {
 			$stmt = $db->prepare("INSERT INTO sip (sip, time)VALUES ('$ip', '$bantime')");
 			$stmt->execute();
 			exit(Security::encrypt("errorLogin<$>", $key1));
@@ -112,7 +112,7 @@
 
         if($ctoken != "null") {
 
-		if($rU['token'] != $acesstoken ) {
+			if($rU['token'] != $acesstoken || $login != $realUser) {
 	        	exit(Security::encrypt("errorLogin<$>", $key1));
 			}
 	    }

@@ -244,9 +244,9 @@ public class ConfigUtils
 			for (int i = 1; i <= newContents.size(); i ++)
 			{
 				String line = newContents.get(i);
-				if (line == null)
+				if (line == null || line.split(": ").length==1)
 				{
-					writer.append("\n");
+					writer.append("");
 					continue; 
 				}
 				writer.append(line);
@@ -360,5 +360,3 @@ public class ConfigUtils
 		return contents.size();
 	}
 }
-
-
