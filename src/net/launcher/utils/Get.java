@@ -22,4 +22,23 @@ public class Get {
   	  }
   	  return libs;
   }
+  
+  public static boolean deleteDirectory(File directory) {
+	    if(directory.exists()){
+	        File[] files = directory.listFiles();
+	        if(null!=files){
+	            for(File file : files) {
+	                if(file.isDirectory()) {
+	                    deleteDirectory(file);
+	                }
+	                else {
+	                	if (!file.getName().contains("launcher.config")) {
+	                		file.delete();
+	                	}
+	                }
+	            }
+	        }
+	    }
+	    return(directory.delete());
+  }
 }

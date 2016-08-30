@@ -240,6 +240,11 @@ public class ThreadUtils
 					Frame.main.setAuthComp();
 					return;
 				}
+				String folder = BaseUtils.getAssetsDir().getAbsolutePath()+File.separator;
+				if(Frame.main.updatepr.isSelected()) {
+					System.err.println(folder);
+					Get.deleteDirectory(new File(folder));
+				}
 				runUpdater(answer);
 			} interrupt(); } catch(Exception e){ e.printStackTrace(); }
 		}};
@@ -266,9 +271,8 @@ public class ThreadUtils
 		
 		String folder = BaseUtils.getMcDir().getAbsolutePath()+File.separator;
 		String asfolder = BaseUtils.getAssetsDir().getAbsolutePath()+File.separator;
-		if(!answer.split("<br>")[0].split("<:>")[2].split("<>")[0].equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) ||
-		!new File(folder+"config").exists() || 
-		Frame.main.updatepr.isSelected())
+			
+		if(!answer.split("<br>")[0].split("<:>")[2].split("<>")[0].equals(BaseUtils.getPropertyString(BaseUtils.getClientName() + "_zipmd5")) || !new File(folder+"config").exists()) 
 		{ 
 			GuardUtils.filesize += Integer.parseInt(answer.split("<br>")[0].split("<:>")[2].split("<>")[1]);
 			files.add("/"+BaseUtils.getClientName()+"/config.zip");  zipupdate = true;
@@ -277,8 +281,7 @@ public class ThreadUtils
 		if(!Settings.assetsfolder)
 		{
 			if(!answer.split("<br>")[0].split("<:>")[3].split("<>")[0].equals(BaseUtils.getPropertyString("assets_aspmd5")) ||
-			!new File(asfolder+"assets").exists() ||
-			Frame.main.updatepr.isSelected())
+			!new File(asfolder+"assets").exists())
 			{
 				GuardUtils.filesize += Integer.parseInt(answer.split("<br>")[0].split("<:>")[3].split("<>")[1]);
 				files.add("/assets.zip");  asupdate = true;
