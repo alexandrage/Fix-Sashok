@@ -48,12 +48,12 @@
 	$key1               = "1234567891234567";  //16 Character Key Ключ пост запросов
 	$key2               = "1234567891234567"; //16 Character  Key  Ключ пост запросов
     $checklauncher      = false; //Проверка хеша лаунчера
-	$md5launcherexe     = md5(@file_get_contents("launcher/fix.exe"));  // Сверяем MD5
-	$md5launcherjar     = md5(@file_get_contents("launcher/fix.jar"));  // Сверяем MD5
+	$md5launcherexe     = @md5_file("launcher/fix.exe");  // Сверяем MD5
+	$md5launcherjar     = @md5_file("launcher/fix.jar");  // Сверяем MD5
 	$temp               = true;  //Использовать файлы кеширования для ускорение авторизации и снижение нагрузки на вебсервер.
 	                             //Удаляем файл хеша после обновления клиента на сервере в папке /temp/ИмяКлиента!
 
-	$assetsfolder       = false; //Скачивать assets из папки, или из архива (true=из папки false=из архива)
+	$assetsfolder       = true; //Скачивать assets из папки, или из архива (true=из папки false=из архива)
 
 //========================= Настройки ЛК =======================//	
 
@@ -155,44 +155,41 @@
 		$stmt = $db->prepare("
 		CREATE TABLE IF NOT EXISTS `permissions` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `name` varchar(32) NOT NULL,
+		  `name` varchar(50) NOT NULL,
 		  `type` tinyint(1) NOT NULL,
-		  `permission` varchar(200) NOT NULL,
-		  `world` varchar(32) DEFAULT NULL,
-		  `value` text,
+		  `permission` text NOT NULL,
+		  `world` varchar(50) NOT NULL,
+		  `value` text NOT NULL,
 		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `unique` (`name`,`permission`,`world`,`type`),
 		  KEY `user` (`name`,`type`),
 		  KEY `world` (`world`,`name`,`type`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5;	
+		) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 		");
 		$stmt->execute();
 		$stmt = $db->prepare("
 		CREATE TABLE IF NOT EXISTS `permissions_entity` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `name` varchar(32) NOT NULL,
+		  `name` varchar(50) NOT NULL,
 		  `type` tinyint(1) NOT NULL,
-		  `prefix` varchar(255) NOT NULL,
-		  `suffix` varchar(255) NOT NULL,
 		  `default` tinyint(1) NOT NULL DEFAULT '0',
 		  PRIMARY KEY (`id`),
-		  UNIQUE KEY `name` (`name`),
+		  UNIQUE KEY `name` (`name`,`type`),
 		  KEY `default` (`default`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6;
+		) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 		");
 		$stmt->execute();
 		$stmt = $db->prepare("
 		CREATE TABLE IF NOT EXISTS `permissions_inheritance` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `child` varchar(32) NOT NULL,
-		  `parent` varchar(32) NOT NULL,
+		  `child` varchar(50) NOT NULL,
+		  `parent` varchar(50) NOT NULL,
 		  `type` tinyint(1) NOT NULL,
-		  `world` varchar(32) DEFAULT NULL,
+		  `world` varchar(50) DEFAULT NULL,
 		  PRIMARY KEY (`id`),
 		  UNIQUE KEY `child` (`child`,`parent`,`type`,`world`),
 		  KEY `child_2` (`child`,`type`),
 		  KEY `parent` (`parent`,`type`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		");
 		$stmt->execute();
 		$stmt = $db->prepare("
