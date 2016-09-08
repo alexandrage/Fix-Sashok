@@ -5,6 +5,8 @@
 	if(!defined('INCLUDE_CHECK')) die("You don't have permissions to run this");
 	include_once("loger.php");
 	
+	include_once("security_mcrypt.php"); // использовать mcrypt для шифрования
+	//include_once("security_openssl.php"); // использовать openssl для шифрования
 	
 	/* Метод хеширования пароля для интеграции с различними плагинами/сайтами/cms/форумами
 	'hash_md5' 			- md5 хеширование
