@@ -4,7 +4,8 @@
 
 	if(!defined('INCLUDE_CHECK')) die("You don't have permissions to run this");
 	include_once("loger.php");
-	include_once("security.php");
+	
+	
 	/* Метод хеширования пароля для интеграции с различними плагинами/сайтами/cms/форумами
 	'hash_md5' 			- md5 хеширование
 	'hash_authme'   	- интеграция с плагином AuthMe

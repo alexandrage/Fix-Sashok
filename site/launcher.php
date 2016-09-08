@@ -3,7 +3,6 @@
 	define('INCLUDE_CHECK',true);
 	if(isset ($_POST['action'])) {
 		include("connect.php");
-		include_once("security.php");
 		include_once("loger.php");
 		include_once("uuid.php");
 		$x  = $_POST['action'];
