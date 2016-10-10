@@ -3,6 +3,7 @@ header('Content-Type: text/html; charset=cp1251');
 define('INCLUDE_CHECK',true);
 include("connect.php");
 include_once("loger.php");
+if(!$usecreg) die("Использование регистрации выключено");
 @$login     = $_POST['user'];
 @$password  = $_POST['password'];
 @$password2 = $_POST['password2'];

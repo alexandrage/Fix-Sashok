@@ -74,7 +74,7 @@
 	$canActivateVaucher =  true; //Можно ли активировать ваучер
 	$canExchangeMoney   =  true; //Можно ли обменивать Realmoney -> IConomy
 	$canUseJobs			=  true; //Можно ли использовать работы
-	$usecheck			=  true; //Можно ли использовать регистрацию в лаунчере
+	$usecreg			=  true; //Можно ли использовать регистрацию в лаунчере
 	
 	$cloakPrice			=  0;   //Цена плаща (В рублях)
 	$vipPrice			=  100;  //Цена випа (В руб/мес)
