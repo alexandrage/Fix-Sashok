@@ -25,7 +25,12 @@ public class ProcessUtils {
             if (isErrorStream) inputStream = process.getErrorStream();
             else inputStream = process.getInputStream();
             
-            InputStreamReader reader = new InputStreamReader(inputStream, System.getProperty("file.encoding"));
+            InputStreamReader reader;
+            if(BaseUtils.getPlatform()==2) {
+            	reader = new InputStreamReader(inputStream, "cp1251");
+            } else {
+            	reader = new InputStreamReader(inputStream, "utf-8");
+            }
             BufferedReader buf = new BufferedReader(reader);
             String line = null;
             
