@@ -79,6 +79,12 @@ public class ThreadUtils
 			BaseUtils.send(answer2);
             String answer = null;
             System.err.println();
+			if(answer2 == null) {
+				Frame.main.panel.tmpString = Message.Null;
+				BaseUtils.sendErr("Ошибка подключения!");
+				error = true;
+			}
+			if(answer2 != null) {
 			try {
 				answer = decrypt(answer2, Settings.key1);
 			} catch (Exception e) {
@@ -88,6 +94,7 @@ public class ThreadUtils
 				}
 			}
 			if(answer == null) {
+				System.out.println("--------1");
 				Frame.main.panel.tmpString = Message.Null;
 				error = true;
 			} else if(answer.length()==0) {
@@ -137,7 +144,10 @@ public class ThreadUtils
 			{
 				Frame.main.panel.tmpString = answer;
 				error = true;
-			} if(error)
+			} 
+		    }
+			
+			if(error)
 			{
 				Frame.main.panel.tmpColor = Color.red;
 				try
