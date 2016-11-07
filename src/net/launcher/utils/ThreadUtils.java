@@ -94,7 +94,6 @@ public class ThreadUtils
 				}
 			}
 			if(answer == null) {
-				System.out.println("--------1");
 				Frame.main.panel.tmpString = Message.Null;
 				error = true;
 			} else if(answer.length()==0) {
