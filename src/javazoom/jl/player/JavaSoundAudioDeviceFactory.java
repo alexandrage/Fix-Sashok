@@ -31,8 +31,6 @@ import javazoom.jl.decoder.JavaLayerException;
 public class JavaSoundAudioDeviceFactory extends AudioDeviceFactory
 {
 	private boolean tested = false;
-
-	static private final String DEVICE_CLASS_NAME = "javazoom.jl.player.JavaSoundAudioDevice";
 	
 	public synchronized AudioDevice createAudioDevice()
 		throws JavaLayerException
@@ -63,7 +61,7 @@ public class JavaSoundAudioDeviceFactory extends AudioDeviceFactory
 		ClassLoader loader = getClass().getClassLoader();
 		try
 		{
-			JavaSoundAudioDevice dev = (JavaSoundAudioDevice)instantiate(loader, DEVICE_CLASS_NAME);
+			JavaSoundAudioDevice dev = (JavaSoundAudioDevice)instantiate(loader, JavaSoundAudioDevice.class.getName());
 			return dev;
 		}
 		catch (Exception ex)
