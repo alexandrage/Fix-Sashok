@@ -1,6 +1,5 @@
 <?php
 define('INCLUDE_CHECK',true);
-include("security.php");
 include("connect.php");
 @$action  = $_POST['action'];
 @$client  = $_POST['client'];
