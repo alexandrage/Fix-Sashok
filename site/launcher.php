@@ -552,6 +552,41 @@
 		return $res;
 	}
 
+	function strlen_8bit($binary_string) {
+        if (function_exists('mb_strlen')) {
+            return mb_strlen($binary_string, '8bit');
+        }
+        return strlen($binary_string);
+    }
+	
+    function substr_8bit($binary_string, $start, $length) {
+        if (function_exists('mb_substr')) {
+            return mb_substr($binary_string, $start, $length, '8bit');
+        }
+        return substr($binary_string, $start, $length);
+    }
+	
+	function password_get_info($hash) {
+        $return = true;
+        if (substr_8bit($hash, 0, 4) == '$2y$' && strlen_8bit($hash) == 60) {
+            $return = false;
+        }
+        return $return;
+    }
+	
+	function password_verify($password, $hash) {
+        $ret = crypt($password, $hash);
+		
+        if (!is_string($ret) || strlen_8bit($ret) != strlen_8bit($hash) || strlen_8bit($ret) <= 13) {
+            return false;
+        }
+        $status = 0;
+        for ($i = 0; $i < strlen_8bit($ret); $i++) {
+            $status |= (ord($ret[$i]) ^ ord($hash[$i]));
+        }
+        return $status === 0;
+    }
+	
 	function hash_name($ncrypt, $realPass, $postPass, $salt) {
 		$cryptPass = false;
 		
@@ -567,7 +602,15 @@
 		}
 
 		if ($ncrypt === 'hash_dle') {
+			if(password_get_info($realPass)) {
 				$cryptPass = md5(md5($postPass));
+			} else {
+				if(password_verify($postPass, $realPass)) {
+					$cryptPass = $realPass;
+				} else {
+					$cryptPass = "0";
+				}
+			}
 		}
 
 		if ($ncrypt === 'hash_cauth') {
@@ -625,7 +668,6 @@
 					$cryptPass = '*1';
 
 				$id = substr($realPass, 0, 3);
-				# We use "$P$", phpBB3 uses "$H$" for the same thing
 				if ($id != '$P$' && $id != '$H$')
 					return $cryptPass = crypt($postPass, $realPass);
 
@@ -734,7 +776,6 @@
         $password=null;
         while($max--)
         $password.=$chars[rand(0,$size)];
-
           return $password;
         }
 
