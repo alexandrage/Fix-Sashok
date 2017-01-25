@@ -566,7 +566,7 @@
         return substr($binary_string, $start, $length);
     }
 	
-	function password_get_info($hash) {
+	function pass_get_info($hash) {
         $return = true;
         if (substr_8bit($hash, 0, 4) == '$2y$' && strlen_8bit($hash) == 60) {
             $return = false;
@@ -574,7 +574,7 @@
         return $return;
     }
 	
-	function password_verify($password, $hash) {
+	function pass_verify($password, $hash) {
         $ret = crypt($password, $hash);
 		
         if (!is_string($ret) || strlen_8bit($ret) != strlen_8bit($hash) || strlen_8bit($ret) <= 13) {
@@ -602,10 +602,10 @@
 		}
 
 		if ($ncrypt === 'hash_dle') {
-			if(password_get_info($realPass)) {
+			if(pass_get_info($realPass)) {
 				$cryptPass = md5(md5($postPass));
 			} else {
-				if(password_verify($postPass, $realPass)) {
+				if(pass_verify($postPass, $realPass)) {
 					$cryptPass = $realPass;
 				} else {
 					$cryptPass = "0";
