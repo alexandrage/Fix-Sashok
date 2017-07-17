@@ -7,8 +7,7 @@ import javax.swing.border.Border;
 
 import net.launcher.utils.BaseUtils;
 
-public class PassfieldStyle
-{
+public class PassfieldStyle {
 	public int x = 0;
 	public int y = 0;
 	public int w = 0;
@@ -20,9 +19,9 @@ public class PassfieldStyle
 	public Color caretColor;
 	public BufferedImage texture;
 	public Border border;
-	
-	public PassfieldStyle(int x, int y, int w, int h, String texture, String fontName, float fontSize, Color textColor, Color caretColor, String echoChar, Border border)
-	{
+
+	public PassfieldStyle(int x, int y, int w, int h, String texture, String fontName, float fontSize, Color textColor,
+			Color caretColor, String echoChar, Border border) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -35,9 +34,8 @@ public class PassfieldStyle
 		this.texture = BaseUtils.getLocalImage(texture);
 		this.border = border;
 	}
-	
-	public void apply(Passfield pass)
-	{
+
+	public void apply(Passfield pass) {
 		pass.setBounds(x, y, w, h);
 		pass.texture = texture;
 		pass.setFont(BaseUtils.getFont(fontName, fontSize));

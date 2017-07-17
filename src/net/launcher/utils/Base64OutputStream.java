@@ -3,8 +3,7 @@ package net.launcher.utils;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class Base64OutputStream extends OutputStream
-{
+public class Base64OutputStream extends OutputStream {
 	public OutputStream outputStream = null;
 	public int buffer = 0;
 	public int bytecounter = 0;
@@ -12,37 +11,32 @@ public class Base64OutputStream extends OutputStream
 	public static char pad = '=';
 	public int linecounter = 0;
 	public int linelength = 0;
-	public Base64OutputStream(OutputStream outputStream)
-	{
+
+	public Base64OutputStream(OutputStream outputStream) {
 		this(outputStream, 76);
 	}
 
-	public Base64OutputStream(OutputStream outputStream, int wrapAt)
-	{
+	public Base64OutputStream(OutputStream outputStream, int wrapAt) {
 		this.outputStream = outputStream;
 		this.linelength = wrapAt;
 	}
 
-	public void write(int b) throws IOException
-	{
+	public void write(int b) throws IOException {
 		int value = (b & 0xFF) << (16 - (bytecounter * 8));
 		buffer = buffer | value;
 		bytecounter++;
-		if(bytecounter == 3) commit();
+		if (bytecounter == 3)
+			commit();
 	}
 
-	public void close() throws IOException
-	{
+	public void close() throws IOException {
 		commit();
 		outputStream.close();
 	}
 
-	public void commit() throws IOException
-	{
-		if (bytecounter > 0)
-		{
-			if (linelength > 0 && linecounter == linelength)
-			{
+	public void commit() throws IOException {
+		if (bytecounter > 0) {
+			if (linelength > 0 && linecounter == linelength) {
 				outputStream.write("\r\n".getBytes());
 				linecounter = 0;
 			}

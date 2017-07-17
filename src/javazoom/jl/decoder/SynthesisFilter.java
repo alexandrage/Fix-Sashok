@@ -30,8 +30,6 @@
  */
 package javazoom.jl.decoder;
 
-import java.io.IOException;
-
 /**
  * A class for the synthesis filter bank.
  * This class does a fast downsampling from 32, 44.1 or 48 kHz to 8 kHz, if ULAW is defined.

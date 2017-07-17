@@ -5,20 +5,20 @@ import java.net.ServerSocket;
 
 class Socket extends Thread {
 
-	   private final ServerSocket socket;
+	private final ServerSocket socket;
 
+	Socket(ServerSocket Sock) {
+		this.socket = Sock;
+	}
 
-	   Socket(ServerSocket Sock) {
-	      this.socket = Sock;
-	   }
-
-	   public void run() {
-	      while(true) {
-	         try {
-	            while(true) {
-	               this.socket.accept();
-	            }
-	         } catch (IOException var2) {}
-	      }
-	   }
+	public void run() {
+		while (true) {
+			try {
+				while (true) {
+					this.socket.accept();
+				}
+			} catch (IOException var2) {
+			}
+		}
+	}
 }

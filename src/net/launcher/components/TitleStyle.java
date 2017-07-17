@@ -12,9 +12,8 @@ public class TitleStyle {
 	public String fontName = BaseUtils.empty;
 	public float fontSize = 1F;
 	public Color textColor;
-	
-	public TitleStyle(int x, int y, int w, int h, String fontName, float fontSize, Color textColor)
-	{
+
+	public TitleStyle(int x, int y, int w, int h, String fontName, float fontSize, Color textColor) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -23,9 +22,8 @@ public class TitleStyle {
 		this.fontSize = fontSize;
 		this.textColor = textColor;
 	}
-	
-	public void apply(Title title)
-	{
+
+	public void apply(Title title) {
 		title.setBounds(x, y, w, h);
 		title.setFont(BaseUtils.getFont(fontName, fontSize));
 		title.setBackground(textColor);

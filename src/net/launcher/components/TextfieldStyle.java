@@ -7,8 +7,7 @@ import javax.swing.border.Border;
 
 import net.launcher.utils.BaseUtils;
 
-public class TextfieldStyle
-{
+public class TextfieldStyle {
 	public int x = 0;
 	public int y = 0;
 	public int w = 0;
@@ -19,9 +18,9 @@ public class TextfieldStyle
 	public Color caretColor;
 	public BufferedImage texture;
 	public Border border;
-	
-	public TextfieldStyle(int x, int y, int w, int h, String texture, String fontName, float fontSize, Color textColor, Color caretColor, Border border)
-	{
+
+	public TextfieldStyle(int x, int y, int w, int h, String texture, String fontName, float fontSize, Color textColor,
+			Color caretColor, Border border) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -33,9 +32,8 @@ public class TextfieldStyle
 		this.texture = BaseUtils.getLocalImage(texture);
 		this.border = border;
 	}
-	
-	public void apply(Textfield text)
-	{
+
+	public void apply(Textfield text) {
 		text.setBounds(x, y, w, h);
 		text.texture = texture;
 		text.setFont(BaseUtils.getFont(fontName, fontSize));

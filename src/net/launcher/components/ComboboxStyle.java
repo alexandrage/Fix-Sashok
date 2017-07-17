@@ -5,8 +5,7 @@ import java.awt.image.BufferedImage;
 
 import net.launcher.utils.BaseUtils;
 
-public class ComboboxStyle
-{
+public class ComboboxStyle {
 	public int x = 0;
 	public int y = 0;
 	public int w = 0;
@@ -17,9 +16,9 @@ public class ComboboxStyle
 	public boolean visible = false;
 	public Align align;
 	public BufferedImage texture;
-	
-	public ComboboxStyle(int x, int y, int w, int h, String fontName, String texture, float fontSize, Color color, boolean visible, Align align)
-	{
+
+	public ComboboxStyle(int x, int y, int w, int h, String fontName, String texture, float fontSize, Color color,
+			boolean visible, Align align) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -31,9 +30,8 @@ public class ComboboxStyle
 		this.align = align;
 		this.texture = BaseUtils.getLocalImage(texture);
 	}
-	
-	public void apply(Combobox combo)
-	{
+
+	public void apply(Combobox combo) {
 		combo.setVisible(visible);
 		combo.setBounds(x, y, w, h);
 		combo.setForeground(color);
@@ -46,7 +44,6 @@ public class ComboboxStyle
 		combo.pressedTX = texture.getSubimage(0, comboboxh * 2, comboboxw, comboboxh);
 		combo.selectedTX = texture.getSubimage(0, comboboxh * 6, comboboxw, comboboxh);
 		combo.panelTX = texture.getSubimage(0, comboboxh * 3, comboboxw, comboboxh * 3);
-		
 		combo.initialy = y;
 	}
 }

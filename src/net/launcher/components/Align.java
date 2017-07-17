@@ -1,6 +1,5 @@
 package net.launcher.components;
 
-public enum Align
-{
+public enum Align {
 	LEFT, CENTER, RIGHT
 }

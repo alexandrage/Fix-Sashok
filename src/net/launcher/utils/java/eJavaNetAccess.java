@@ -6,8 +6,8 @@
 package net.launcher.utils.java;
 
 public interface eJavaNetAccess {
-    /**
-     * return the URLClassPath belonging to the given loader
-     */
-    eURLClassPath geteURLClassPath (eURLClassLoader u);
+	/**
+	 * return the URLClassPath belonging to the given loader
+	 */
+	eURLClassPath geteURLClassPath(eURLClassLoader u);
 }
