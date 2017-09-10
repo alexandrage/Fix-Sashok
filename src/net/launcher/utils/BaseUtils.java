@@ -231,9 +231,9 @@ public class BaseUtils {
 
 			ct.connect();
 
-			InputStream is = ct.getInputStream();
+			InputStreamReader is = new InputStreamReader(ct.getInputStream(), "UTF-8");
 			StringBuilder response;
-			try (BufferedReader rd = new BufferedReader(new InputStreamReader(is))) {
+			try (BufferedReader rd = new BufferedReader(is)) {
 				response = new StringBuilder();
 				String line;
 				while ((line = rd.readLine()) != null) {
