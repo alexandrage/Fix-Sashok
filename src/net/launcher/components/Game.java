@@ -226,6 +226,13 @@ public class Game extends JFrame {
 					params.add("net.minecraftforge.fml.common.launcher.FMLTweaker");
 					tweakClass = true;
 				} catch (ClassNotFoundException e) {
+					try {
+						cl.loadClass("optifine.OptiFineTweaker");
+						params.add("--tweakClass");
+						params.add("optifine.OptiFineTweaker");
+						tweakClass = true;
+					} catch (ClassNotFoundException e2) {
+					}
 				}
 				if (tweakClass) {
 					Cl = "net.minecraft.launchwrapper.Launch";
