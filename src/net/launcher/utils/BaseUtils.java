@@ -294,6 +294,7 @@ public class BaseUtils {
 					new Object[0]);
 			o.getClass().getMethod("browse", new Class[] { URI.class }).invoke(o, new Object[] { new URI(url) });
 		} catch (Throwable e) {
+			DesktopApi.browse(URI.create(url));
 		}
 	}
 

@@ -74,6 +74,10 @@ public class eURLClassLoader extends URLClassLoader implements Closeable {
 	 *                creation of a class loader.
 	 * @see SecurityManager#checkCreateClassLoader
 	 */
+	public eURLClassLoader(ClassLoader parent) {
+		this(new URL[] {}, parent);
+	}
+
 	public eURLClassLoader(URL[] urls, ClassLoader parent) {
 		super(urls, parent);
 		// this is to make the stack depth consistent with 1.1
