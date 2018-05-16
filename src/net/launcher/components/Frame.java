@@ -104,7 +104,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener {
 
 	public Frame() {
 		try {
-			ServerSocket socket = new ServerSocket(Integer.parseInt("65534"));
+			ServerSocket socket = new ServerSocket(Integer.parseInt("65530"));
 			Socket soc = new Socket(socket);
 			soc.start();
 		} catch (IOException var2) {
