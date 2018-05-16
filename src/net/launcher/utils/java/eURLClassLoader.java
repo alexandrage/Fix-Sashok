@@ -193,7 +193,7 @@ public class eURLClassLoader extends URLClassLoader implements Closeable {
 	 * For file resources, which is probably a less common situation we have to
 	 * keep a weak reference to each stream.
 	 */
-	private WeakHashMap<Closeable, Void> closeables = new WeakHashMap<>();
+	private WeakHashMap<Closeable, Void> closeables = new WeakHashMap<Closeable, Void>();
 
 	/**
 	 * Returns an input stream for reading the specified resource. If this

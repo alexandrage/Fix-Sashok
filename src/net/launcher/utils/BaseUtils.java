@@ -233,12 +233,11 @@ public class BaseUtils {
 
 			InputStream is = ct.getInputStream();
 			StringBuilder response;
-			try (BufferedReader rd = new BufferedReader(new InputStreamReader(is))) {
-				response = new StringBuilder();
-				String line;
-				while ((line = rd.readLine()) != null) {
-					response.append(line);
-				}
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			response = new StringBuilder();
+			String line;
+			while ((line = rd.readLine()) != null) {
+				response.append(line);
 			}
 
 			String str = response.toString();
