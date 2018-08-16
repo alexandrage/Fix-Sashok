@@ -72,6 +72,10 @@ public class Settings {
 	/** Тут ничего не трогать! */
 	public static String[] servers = { "Offline, localhost, 25565, 1.5.2", };
 
+	/** Запуск через 1.5.2 и ниже MinecraftApplet или нет */
+	/** Требуется отключать из за некоторых обфускаторов */
+	public static final boolean isAplet = true;
+
 	/** Настройка панели ссылок */
 	public static final String[] links = {
 			/**

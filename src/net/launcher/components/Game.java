@@ -40,7 +40,11 @@ public class Game extends JFrame {
 		cl = new eURLClassLoader(GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
 		boolean old = false;
 		try {
-			cl.loadClass("net.minecraft.client.MinecraftApplet");
+			if (Settings.isAplet) {
+				cl.loadClass("net.minecraft.client.MinecraftApplet");
+			} else {
+				cl.loadClass("net.minecraft.client.Minecraft");
+			}
 			old = true;
 		} catch (Exception e) {
 		}
@@ -65,74 +69,85 @@ public class Game extends JFrame {
 				}
 			});
 			check.start();
+			BaseUtils.send("Running Minecraft");
+			if (Settings.isAplet) {
+				try {
+					addWindowListener(new WindowListener() {
+						public void windowOpened(WindowEvent e) {
+						}
 
-			try {
-				addWindowListener(new WindowListener() {
-					public void windowOpened(WindowEvent e) {
+						public void windowIconified(WindowEvent e) {
+						}
+
+						public void windowDeiconified(WindowEvent e) {
+						}
+
+						public void windowDeactivated(WindowEvent e) {
+						}
+
+						public void windowClosed(WindowEvent e) {
+						}
+
+						public void windowActivated(WindowEvent e) {
+						}
+
+						public void windowClosing(WindowEvent e) {
+							mcapplet.stop();
+							mcapplet.destroy();
+							System.exit(0);
+						}
+					});
+					setForeground(Color.BLACK);
+					setBackground(Color.BLACK);
+
+					mcapplet = new Launcher(bin, GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
+					mcapplet.customParameters.put("username", user);
+					mcapplet.customParameters.put("sessionid", session);
+					mcapplet.customParameters.put("stand-alone", "true");
+					if (Settings.useAutoenter) {
+						mcapplet.customParameters.put("server",
+								Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
+						mcapplet.customParameters.put("port",
+								Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
 					}
-
-					public void windowIconified(WindowEvent e) {
+					setTitle(Settings.titleInGame);
+					if (Frame.main != null) {
+						Frame.main.setVisible(false);
+						setBounds(Frame.main.getBounds());
+						setExtendedState(Frame.main.getExtendedState());
+						setMinimumSize(Frame.main.getMinimumSize());
 					}
+					setSize(Settings.width, Settings.height + 28);
+					setMinimumSize(new Dimension(Settings.width, Settings.height + 28));
+					setLocationRelativeTo(null);
+					mcapplet.setForeground(Color.BLACK);
+					mcapplet.setBackground(Color.BLACK);
+					setLayout(new BorderLayout());
+					add(mcapplet, BorderLayout.CENTER);
+					validate();
+					if (BaseUtils.getPropertyBoolean("fullscreen"))
+						setExtendedState(JFrame.MAXIMIZED_BOTH);
+					setIconImage(BaseUtils.getLocalImage("favicon"));
+					setVisible(true);
 
-					public void windowDeiconified(WindowEvent e) {
+					if (Settings.useConsoleHider) {
+						System.setErr(new PrintStream(new NulledStream()));
+						System.setOut(new PrintStream(new NulledStream()));
 					}
-
-					public void windowDeactivated(WindowEvent e) {
-					}
-
-					public void windowClosed(WindowEvent e) {
-					}
-
-					public void windowActivated(WindowEvent e) {
-					}
-
-					public void windowClosing(WindowEvent e) {
-						mcapplet.stop();
-						mcapplet.destroy();
-						System.exit(0);
-					}
-				});
-				setForeground(Color.BLACK);
-				setBackground(Color.BLACK);
-
-				mcapplet = new Launcher(bin, GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
-				mcapplet.customParameters.put("username", user);
-				mcapplet.customParameters.put("sessionid", session);
-				mcapplet.customParameters.put("stand-alone", "true");
-				if (Settings.useAutoenter) {
-					mcapplet.customParameters.put("server",
-							Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[1]);
-					mcapplet.customParameters.put("port",
-							Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[2]);
+					mcapplet.init();
+					mcapplet.start();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				setTitle(Settings.titleInGame);
-				if (Frame.main != null) {
-					Frame.main.setVisible(false);
-					setBounds(Frame.main.getBounds());
-					setExtendedState(Frame.main.getExtendedState());
-					setMinimumSize(Frame.main.getMinimumSize());
-				}
-				setSize(Settings.width, Settings.height + 28);
-				setMinimumSize(new Dimension(Settings.width, Settings.height + 28));
-				setLocationRelativeTo(null);
-				mcapplet.setForeground(Color.BLACK);
-				mcapplet.setBackground(Color.BLACK);
-				setLayout(new BorderLayout());
-				add(mcapplet, BorderLayout.CENTER);
-				validate();
-				if (BaseUtils.getPropertyBoolean("fullscreen"))
-					setExtendedState(JFrame.MAXIMIZED_BOTH);
-				setIconImage(BaseUtils.getLocalImage("favicon"));
-				setVisible(true);
-
-				if (Settings.useConsoleHider) {
-					System.setErr(new PrintStream(new NulledStream()));
-					System.setOut(new PrintStream(new NulledStream()));
-				}
-				mcapplet.init();
-				mcapplet.start();
-			} catch (Exception e) {
-				e.printStackTrace();
+			} else {
+				System.setProperty("org.lwjgl.librarypath", bin + "natives");
+				System.setProperty("net.java.games.input.librarypath", bin + "natives");
+				BaseUtils.patchDir(cl);
+				params.add(user);
+				params.add(session);
+				Frame.main.setVisible(false);
+				Cl = "net.minecraft.client.Minecraft";
+				start.start();
 			}
 
 		} else {
@@ -153,7 +168,7 @@ public class Game extends JFrame {
 			});
 			check.start();
 			try {
-				System.out.println("Running Minecraft");
+				BaseUtils.send("Running Minecraft");
 				String jarpath = BaseUtils.getMcDir().toString() + File.separator;
 				String minpath = BaseUtils.getMcDir().toString();
 				String assets = BaseUtils.getAssetsDir().toString() + File.separator;
