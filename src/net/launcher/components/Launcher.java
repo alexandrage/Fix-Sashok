@@ -6,12 +6,12 @@ import java.awt.BorderLayout;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.launcher.run.Settings;
 import net.launcher.utils.BaseUtils;
-import net.launcher.utils.java.eURLClassLoader;
 
 public class Launcher extends Applet implements AppletStub {
 	private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public class Launcher extends Applet implements AppletStub {
 			}
 		}.run();
 
-		eURLClassLoader cl = new eURLClassLoader(urls);
+		URLClassLoader cl = new URLClassLoader(urls);
 		System.setProperty("org.lwjgl.librarypath", bin + "natives");
 		System.setProperty("net.java.games.input.librarypath", bin + "natives");
 		try {

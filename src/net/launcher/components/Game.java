@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +21,12 @@ import net.launcher.run.Settings;
 import net.launcher.utils.BaseUtils;
 import net.launcher.utils.EncodingUtils;
 import net.launcher.utils.GuardUtils;
-import net.launcher.utils.java.eURLClassLoader;
 
 public class Game extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	public static Launcher mcapplet;
-	private static eURLClassLoader cl;
+	private static URLClassLoader cl;
 	static String Cl = null;
 	Timer timer = null;
 	int i = 0;
@@ -37,7 +37,7 @@ public class Game extends JFrame {
 				new File(BaseUtils.getAssetsDir().getAbsolutePath() + File.separator + BaseUtils.getClientName()));
 		GuardUtils.getLogs(new File(BaseUtils.getAssetsDir().getAbsolutePath() + File.separator + "logs"));
 		String bin = BaseUtils.getMcDir().toString() + File.separator;
-		cl = new eURLClassLoader(GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
+		cl = new URLClassLoader(GuardUtils.url.toArray(new URL[GuardUtils.url.size()]));
 		boolean old = false;
 		try {
 			if (Settings.isAplet) {
