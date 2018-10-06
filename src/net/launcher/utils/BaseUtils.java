@@ -133,7 +133,7 @@ public class BaseUtils {
 		case 2:
 			String appData = System.getenv("SYSTEMDRIVE");
 			if (appData != null)
-				return new File(appData, path);
+				return new File(appData+File.separator, path);
 			else
 				return new File(home, path);
 		case 3:
