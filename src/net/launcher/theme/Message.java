@@ -9,6 +9,7 @@ public class Message {
 	public static String Personal = "Войти в ЛК";
 	public static String Register = "Регистрация";
 	public static String Login = "Логин...";
+	public static String Password = "Пароль...";
 	// Регистрация
 	public static String closereg = "Отмена";
 	public static String register = "Регистрация";
