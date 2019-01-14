@@ -35,7 +35,6 @@ import net.launcher.utils.ThemeUtils;
 import net.launcher.utils.ThreadUtils;
 import static net.launcher.utils.BaseUtils.*;
 
-import com.sun.awt.AWTUtilities;
 
 public class Frame extends JFrame implements ActionListener, FocusListener {
 	boolean b1 = false;
@@ -127,7 +126,7 @@ public class Frame extends JFrame implements ActionListener, FocusListener {
 		setLayout(new BorderLayout());
 		setUndecorated(Settings.customframe && BaseUtils.getPlatform() != 0);
 		if (isUndecorated())
-			AWTUtilities.setWindowOpaque(this, false);
+			this.setBackground(new Color(0,0,0,0));
 		setResizable(false);
 
 		for (int i = 0; i < links.length; i++) {
