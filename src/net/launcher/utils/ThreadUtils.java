@@ -24,6 +24,8 @@ import net.launcher.theme.Message;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.binary.Base64;
+
 public class ThreadUtils {
 	public static Thread serverPollThread;
 	static String d = y.e() + "1234";
@@ -399,7 +401,7 @@ public class ThreadUtils {
 				String bytes64 = null;
 				try {
 					bytes = getBytesFromFile(file);
-					bytes64 = new String(new sun.misc.BASE64Encoder().encode(bytes));
+					bytes64 = new String(Base64.encodeBase64(bytes));
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -763,7 +765,7 @@ public class ThreadUtils {
 		} catch (Exception e) {
 			BaseUtils.sendErr("Ключ должен быть 16 символов");
 		}
-		return new String(Base64.getEncoder().encode(crypted));
+		return new String(Base64.encodeBase64(crypted));
 	}
 
 	static String decrypt(String input, String key) {
@@ -772,7 +774,7 @@ public class ThreadUtils {
 			SecretKeySpec skey = new SecretKeySpec(key.getBytes(), "AES");
 			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 			cipher.init(Cipher.DECRYPT_MODE, skey);
-			output = cipher.doFinal(Base64.getDecoder().decode(input));
+			output = cipher.doFinal(Base64.decodeBase64(input));
 		} catch (Exception e) {
 			BaseUtils.sendErr(
 					"Ключ шифрование не совпадает или больше 16 символов, или полученна ошибка от launcher.php");
