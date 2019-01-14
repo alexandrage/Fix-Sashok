@@ -153,16 +153,18 @@ public class Frame extends JFrame implements ActionListener, FocusListener {
 		login.setText(Message.Login);
 		login.addActionListener(this);
 		login.addFocusListener(this);
+                password.setText(Message.Password);
 		password.setEchoChar('*');
 		passwordReg.setEchoChar('*');
 		password2Reg.setEchoChar('*');
 		password.addActionListener(this);
 		password.addFocusListener(this);
-		Focus.setInitialFocus(this, password);
+		Focus.setInitialFocus(this, login);
 		String pass = getPropertyString("password");
-		if (pass == null || pass.equals("-")) {
+		if (pass == null || pass.equals("-") || pass == Message.Login) {
 			b1 = true;
 			b2 = false;
+                        password.setEchoChar((char)0);
 		}
 		login.setVisible(true);
 		password.setVisible(b1);
@@ -556,11 +558,19 @@ public class Frame extends JFrame implements ActionListener, FocusListener {
 	public void focusGained(FocusEvent e) {
 		if (e.getSource() == login && login.getText().equals(Message.Login))
 			login.setText(empty);
+                if (e.getSource() == password &&password.getText().equals(Message.Password)){
+                        password.setText(empty);
+                        password.setEchoChar('*');
+                }
 	}
 
 	public void focusLost(FocusEvent e) {
 		if (e.getSource() == login && login.getText().equals(empty))
-			login.setText(Message.Login);
+			login.setText(Message.Login); 
+                if (e.getSource() == password &&password.getText().equals(empty)){
+                    password.setText(Message.Password);
+                    password.setEchoChar((char)0);
+                }
 	}
 
 	public void setUpdateComp(String version) {
