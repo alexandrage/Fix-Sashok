@@ -21,6 +21,7 @@ import net.launcher.run.Settings;
 import net.launcher.utils.BaseUtils;
 import net.launcher.utils.EncodingUtils;
 import net.launcher.utils.GuardUtils;
+import net.launcher.utils.ProcessUtils;
 
 public class Game extends JFrame {
 
@@ -168,6 +169,7 @@ public class Game extends JFrame {
 			});
 			check.start();
 			try {
+				boolean news = false;
 				BaseUtils.send("Running Minecraft");
 				String jarpath = BaseUtils.getMcDir().toString() + File.separator;
 				String minpath = BaseUtils.getMcDir().toString();
@@ -207,6 +209,10 @@ public class Game extends JFrame {
 					params.add("--session");
 					params.add(session);
 				}
+				params.add("--userType");
+				params.add("legacy");
+				params.add("--versionType");
+				params.add("release");
 				params.add("--username");
 				params.add(user);
 				params.add("--version");
@@ -242,11 +248,19 @@ public class Game extends JFrame {
 					tweakClass = true;
 				} catch (ClassNotFoundException e) {
 					try {
-						cl.loadClass("optifine.OptiFineTweaker");
+						cl.loadClass("org.dimdev.riftloader.launch.RiftLoaderClientTweaker");
 						params.add("--tweakClass");
-						params.add("optifine.OptiFineTweaker");
+						params.add("org.dimdev.riftloader.launch.RiftLoaderClientTweaker");
 						tweakClass = true;
+						news = true;
 					} catch (ClassNotFoundException e2) {
+						try {
+							cl.loadClass("optifine.OptiFineTweaker");
+							params.add("--tweakClass");
+							params.add("optifine.OptiFineTweaker");
+							tweakClass = true;
+						} catch (ClassNotFoundException e3) {
+						}
 					}
 				}
 				if (tweakClass) {
@@ -254,10 +268,30 @@ public class Game extends JFrame {
 				} else {
 					Cl = "net.minecraft.client.main.Main";
 				}
+				try {
+					cl.loadClass("cpw.mods.modlauncher.Launcher");
+					params.add("--launchTarget");
+					params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[4]);
+					params.add("--fml.forgeVersion");
+					params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[5]);
+					params.add("--fml.mcVersion");
+					params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[3]);
+					params.add("--fml.forgeGroup");
+					params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[6]);
+					params.add("--fml.mcpVersion");
+					params.add(Settings.servers[Frame.main.servers.getSelectedIndex()].split(", ")[7]);
+					Cl = "cpw.mods.modlauncher.Launcher";
+					news = true;
+				} catch (ClassNotFoundException e3) {
+				}
 
 				Frame.main.setVisible(false);
 				GuardUtils.delete(new File(assets + "assets/skins"));
-				start.start();
+				if(news) {
+					startNew.start();
+				} else {
+					start.start();
+				}
 			} catch (Exception e) {
 			}
 		}
@@ -266,8 +300,7 @@ public class Game extends JFrame {
 	public static Thread start = new Thread(new Runnable() {
 		@Override
 		public void run() {
-
-			try {
+			try {		
 				Class<?> start = cl.loadClass(Cl);
 				Method main = start.getMethod("main", new Class[] { String[].class });
 				main.invoke(null, new Object[] { params.toArray(new String[0]) });
@@ -282,7 +315,44 @@ public class Game extends JFrame {
 				} catch (Exception x) {
 				}
 			}
-
+		}
+	});
+	
+	public static Thread startNew = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			String jarpath = BaseUtils.getMcDir().toString() + File.separator;
+			List<String> params2 = new ArrayList<String>();
+			List<URL> cps = GuardUtils.url;
+			params2.add(System.getProperty("java.home") + "/bin/java");
+			params2.add("-Xmx2048m");
+			params2.add("-Djava.library.path=" + jarpath + "natives");
+			params2.add("-cp");
+			StringBuilder sb = new StringBuilder();
+			for (URL cp : cps) {
+				sb.append(cp.getPath() + ";");
+			}
+			params2.add(sb.toString());
+			params2.add(Cl);
+			for (String param : params) {
+				params2.add(param);
+			}
+			try {
+				ProcessBuilder pb = new ProcessBuilder(params2);
+				pb.directory(new File(jarpath));
+				Process process = pb.start();
+				new ProcessUtils(process).print();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(Frame.main, e, "Ошибка запуска", javax.swing.JOptionPane.ERROR_MESSAGE,
+						null);
+				try {
+					Class<?> af = Class.forName("java.lang.Shutdown");
+					Method m = af.getDeclaredMethod("halt0", int.class);
+					m.setAccessible(true);
+					m.invoke(null, 1);
+				} catch (Exception x) {
+				}
+			}
 		}
 	});
 }
