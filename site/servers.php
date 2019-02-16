@@ -5,6 +5,7 @@
 // 4-> Версия клиента
 echo '
 v1.5.2, localhost, 25565, 1.5.2<::>
+vanilla1.12.2, localhost, 25565, 1.12.0<::>
 vanilla1.13.2, localhost, 25565, 1.13.2<::>
 vanillar1.13.2, localhost, 25565, 1.13.2<::>
 voxelaria1.6.4, localhost, 25675, 1.6.4<::>
