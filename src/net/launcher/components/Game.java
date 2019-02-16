@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import net.launcher.run.Settings;
+import net.launcher.run.Starter;
 import net.launcher.utils.BaseUtils;
 import net.launcher.utils.EncodingUtils;
 import net.launcher.utils.GuardUtils;
