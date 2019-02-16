@@ -11,10 +11,10 @@ import net.launcher.utils.BaseUtils;
 import net.launcher.utils.ProcessUtils;
 
 public class Starter {
+	public static int memory = BaseUtils.getPropertyInt("memory", Settings.defaultmemory);
 	public static void main(String[] args) throws Exception {
 		try {
 			String jarpath = Starter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-			int memory = BaseUtils.getPropertyInt("memory", Settings.defaultmemory);
 
 			ArrayList<String> params = new ArrayList<String>();
 			params.add(System.getProperty("java.home") + "/bin/java");

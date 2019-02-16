@@ -325,7 +325,7 @@ public class Game extends JFrame {
 			List<String> params2 = new ArrayList<String>();
 			List<URL> cps = GuardUtils.url;
 			params2.add(System.getProperty("java.home") + "/bin/java");
-			params2.add("-Xmx2048m");
+			params2.add("-Xmx"+Starter.memory+"m");
 			params2.add("-Djava.library.path=" + jarpath + "natives");
 			params2.add("-cp");
 			StringBuilder sb = new StringBuilder();
