@@ -285,6 +285,13 @@ public class Game extends JFrame {
 					news = true;
 				} catch (ClassNotFoundException e3) {
 				}
+				
+				try {
+					cl.loadClass("net.fabricmc.loader.launch.knot.KnotClient");
+					Cl = "net.fabricmc.loader.launch.knot.KnotClient";
+					news = true;
+				} catch (ClassNotFoundException e3) {
+				}
 
 				Frame.main.setVisible(false);
 				GuardUtils.delete(new File(assets + "assets/skins"));
