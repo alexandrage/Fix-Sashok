@@ -15,4 +15,5 @@ voxelaria1.10.2, localhost, 25565, 1.10.2<::>
 voxelaria1.12.2, localhost, 25565, 1.12.2<::>
 voxelaria1.13.2, localhost, 25565, 1.13.2, fmlclient, 25.0.13, net.minecraftforge, 20190213.203750<::>
 voxelaria1.14.4, localhost, 25565, 1.14.4, fmlclient, 28.1.61, net.minecraftforge, 20190829.143755<::>
+voxelaria1.16.1, localhost, 25565, 1.16.1, fmlclient, 32.0.106, net.minecraftforge, 20200625.160719<::>
 ';
