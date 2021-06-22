@@ -3,7 +3,6 @@ package net.launcher.utils;
 import static net.launcher.utils.BaseUtils.buildUrl;
 import static net.launcher.utils.BaseUtils.getPropertyString;
 import static net.launcher.utils.BaseUtils.setProperty;
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,14 +12,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
 import net.y;
 import net.launcher.components.Frame;
 import net.launcher.components.Game;
 import net.launcher.components.PersonalContainer;
 import net.launcher.run.Settings;
 import net.launcher.theme.Message;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -399,7 +396,7 @@ public class ThreadUtils {
 				String bytes64 = null;
 				try {
 					bytes = getBytesFromFile(file);
-					bytes64 = new String(new sun.misc.BASE64Encoder().encode(bytes));
+					bytes64 = new String(Base64.getEncoder().encode(bytes));
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

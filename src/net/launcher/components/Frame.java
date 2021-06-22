@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,7 +24,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-
 import net.launcher.run.Settings;
 import net.launcher.theme.Message;
 import net.launcher.utils.BaseUtils;
@@ -35,8 +33,6 @@ import net.launcher.utils.ThemeUtils;
 import net.launcher.utils.ThreadUtils;
 import static net.launcher.utils.BaseUtils.*;
 
-import com.sun.awt.AWTUtilities;
-
 public class Frame extends JFrame implements ActionListener, FocusListener {
 	boolean b1 = false;
 	boolean b2 = true;
@@ -44,7 +40,6 @@ public class Frame extends JFrame implements ActionListener, FocusListener {
 	private static final Component Frame = null;
 	public static String token = "null";
 	public static boolean savetoken = false;
-
 	public static Frame main;
 	public Panel panel = new Panel(0);
 	public Dragger dragger = new Dragger();
@@ -126,8 +121,9 @@ public class Frame extends JFrame implements ActionListener, FocusListener {
 		setForeground(Color.DARK_GRAY);
 		setLayout(new BorderLayout());
 		setUndecorated(Settings.customframe && BaseUtils.getPlatform() != 0);
-		if (isUndecorated())
-			AWTUtilities.setWindowOpaque(this, false);
+		if (isUndecorated()) {
+			this.setBackground(new Color(0, 0, 0, 0));
+		}
 		setResizable(false);
 
 		for (int i = 0; i < links.length; i++) {
